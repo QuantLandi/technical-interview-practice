@@ -19,10 +19,10 @@ def quicksort(array):
         else:
             first_ix += 1
             first = array[first_ix]
-    array = quicksort(array[:pivot_ix]) + \
-            [array[pivot_ix]] + \
-            quicksort(array[pivot_ix + 1:])
-    return array
+    return quicksort(array[:pivot_ix]) + \
+           [array[pivot_ix]] + \
+           quicksort(array[pivot_ix + 1:])
+
 
 test = [21, 4, 1, 3, 9, 20, 25, 6, 21, 14]
 print quicksort(test)
