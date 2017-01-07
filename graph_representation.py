@@ -56,13 +56,11 @@ class Graph(object):
         (To Node, Edge Value)"""
         node_values = [node.value for node in self.nodes]
         adjacency_list = [None] * (max(node_values) + 1)
-            for node in self.nodes:
-            adjacent_nodes = []
-            for edge in node.edges:
-                if node.value != edge.node_to.value:
-                    adjacent_nodes.append((edge.node_to.value, edge.value))
-            if adjacent_nodes != []:
-                adjacency_list[node.value] = adjacent_nodes
+        for edge in self.edges:
+            if not adjacency_list[edge.node_from.value]:
+                adjacency_list[edge.node_from.value] = [(edge.node_to.value, edge.value)]
+            else:
+                adjacency_list[edge.node_from.value].append((edge.node_to.value, edge.value))
         return adjacency_list
     
     def get_adjacency_matrix(self):
