@@ -71,7 +71,15 @@ class Graph(object):
         column numbers represent to nodes.
         Store the edge values in each spot,
         and a 0 if no edge exists."""
-        return []
+        node_values = [node.value for node in self.nodes]
+        n_node_ids = max(node_values) + 1
+        adjacency_matrix = [[0] * n_node_ids for _ in range(n_node_ids)]
+        for edge in self.edges:
+            row_ix = edge.node_from.value
+            col_ix = edge.node_to.value
+            adjacency_matrix[row_ix][col_ix] = edge.value
+        return adjacency_matrix
+
 
 graph = Graph()
 graph.insert_edge(100, 1, 2)
