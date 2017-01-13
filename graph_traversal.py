@@ -181,7 +181,7 @@ class Graph(object):
                     ret_list.append(edge.node_to.value)
                     queue.append(edge.node_to)
             node = queue.pop(0)
-            queue_not_empty = False if queue == [] else True
+            queue_not_empty = True if queue != [] else False
         return ret_list
 
     def bfs_names(self, start_node_num):
