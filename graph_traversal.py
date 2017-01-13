@@ -126,7 +126,7 @@ class Graph(object):
     def find_node(self, node_number):
         "Return the node with value node_number or None"
         return self._node_map.get(node_number)
-    
+
     def _clear_visited(self):
         for node in self.nodes:
             node.visited = False
@@ -137,7 +137,7 @@ class Graph(object):
         output should be a list of numbers corresponding to the
         values of the traversed nodes.
         ARGUMENTS: start_node is the starting Node
-        MODIFIES: the value of the visited property of nodes in self.nodes 
+        MODIFIES: the value of the visited property of nodes in self.nodes
         RETURN: a list of the traversed node values (integers).
         """
         ret_list = [start_node.value]
@@ -171,7 +171,17 @@ class Graph(object):
         node = self.find_node(start_node_num)
         self._clear_visited()
         ret_list = [node.value]
-        # Your code here
+        queue = []
+        queue_not_empty = True
+        while queue_not_empty:
+            node.visited = True
+            for edge in node.edges:
+                if edge.node_to.visited == False:
+                    edge.node_to.visited = True
+                    ret_list.append(edge.node_to.value)
+                    queue.append(edge.node_to)
+            node = queue.pop(0)
+            queue_not_empty = False if queue == [] else True
         return ret_list
 
     def bfs_names(self, start_node_num):
@@ -189,7 +199,7 @@ graph.set_node_names(('Mountain View',   # 0
                       'Shanghai',        # 3
                       'Berlin',          # 4
                       'Sao Paolo',       # 5
-                      'Bangalore'))      # 6 
+                      'Bangalore'))      # 6
 
 graph.insert_edge(51, 0, 1)     # MV <-> SF
 graph.insert_edge(51, 1, 0)     # SF <-> MV
